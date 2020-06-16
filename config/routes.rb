@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  get     '/card/assigned'      =>  'card#assigned'
+  post    '/card/unassign'      => 'card#unassign'
+  get     '/card/assigned'      => 'card#assigned'
   post    '/card/assign'        => 'card#assign'
   get     '/users/get_all'      => 'users#get_all'
   get     '/users/admin_login'  => 'users#admin_login'

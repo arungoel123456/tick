@@ -16,4 +16,16 @@ class CardController < ApplicationController
 	    render json: all_card_json
   	end
 
+  	def unassign
+  		c=Card.find(params[:card_id])
+  		user_assigned= c.user_id
+  		c.assigned= false
+  		c.user_id= 1;
+  		c.save
+  		all_card=Card.where([ "user_id = ? and assigned = ? " ,user_assigned , true ])
+  		all_card_json = all_card.to_json
+  		render json: all_card_json
+
+  	end
+
 end
