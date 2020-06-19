@@ -67,7 +67,7 @@ class MailController < ApplicationController
 			    email = service.get_user_message('goel.arungoel.arun@gmail.com', i.id)  
 			         
 		    	my_email = {date: email.payload.headers.find {|h| h.name == "Date" }.value}
-		    	byebug
+		    	
 		    	
 		    	email_array.push(my_email)
 		    	j = j+1
