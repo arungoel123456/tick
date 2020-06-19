@@ -22,7 +22,8 @@ class MailController < ApplicationController
 	TOKEN_PATH = ( working_dir + "/config/token.yaml").freeze
 
 	SCOPE = Google::Apis::GmailV1::AUTH_GMAIL_READONLY
-	# 	initial_date = "Sun, 14 Jun 2020 20:54:34 +0530"
+	initial_date = "Thu, 18 Jun 2020 16:36:52 +0000 (UTC)"
+	final_date =  "Thu, 18 Jun 2020 16:36:52 +0000 (UTC)"
 
 	##
 	# Ensure valid credentials, either by restoring from the saved credentials
@@ -53,6 +54,7 @@ class MailController < ApplicationController
 		service.client_options.application_name = APPLICATION_NAME
 		service.authorization = authorize
 
+		
 		# Show the user's labels
 		user_id = "me"
 		result = service.list_user_labels user_id
@@ -62,8 +64,10 @@ class MailController < ApplicationController
 		j=0
 		if set = @emails.messages
 		  	set.each do |i|
-			    email = service.get_user_message('goel.arungoel.arun@gmail.com', i.id)        
+			    email = service.get_user_message('goel.arungoel.arun@gmail.com', i.id)  
+			         
 		    	my_email = {date: email.payload.headers.find {|h| h.name == "Date" }.value}
+		    	
 		    	
 		    	email_array.push(my_email)
 		    	j = j+1
@@ -75,6 +79,10 @@ class MailController < ApplicationController
 		    		c.from = email.payload.headers.find{|h| h.name == "From"}.value
 		    		c.save 
 		    	end
+
+		    	if j==1
+
+		    	end
 		    	# braking the loop when 10 emails are traversed
 		    	if j==10
 		    		break
@@ -85,6 +93,38 @@ class MailController < ApplicationController
 		render json: {status: 200, msg: 'User was created.'}
 		# email_array
 	end
+
+	# def send
+	# 	m = Mail.new(
+	# 	to: "arungoel9922@gmail.com", 
+	# 	from: "goel.arungoel.arun@gmail.com", 
+	# 	subject: "Test Subject",
+	# 	body:"Test Body")
+
+	# 	service = Google::Apis::GmailV1::GmailService.new
+	# 	service.client_options.application_name = APPLICATION_NAME
+	# 	service.authorization = authorize
+	# 	msg = m.encoded
+	# 	message_object = Google::Apis::GmailV1::Message.new(raw:m.to_s)
+	# 	service.send_user_message("me", message_object)
+
+	# end
+
+	# def send	
+	# 	message = Google::Apis::GmailV1::Message.new
+	#     service = Google::Apis::GmailV1::GmailService.new
+	#     service.authorization = authorize
+	    
+	#     message = Mail.new(
+	# 	to: "arungoel9922@gmail.com", 
+	# 	from: "goel.arungoel.arun@gmail.com", 
+	# 	subject: "Test Subject",
+	# 	body:"Test Body"
+	# 	)
+	#     # service.request_options.authorization = current_user.token.fresh_token
+ #    	result = service.send_user_message("me", message)
+
+	# end
 
 
 

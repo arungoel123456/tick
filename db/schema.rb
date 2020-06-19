@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_140016) do
+ActiveRecord::Schema.define(version: 2020_06_17_131837) do
 
   create_table "cards", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 2020_06_14_140016) do
     t.string "from"
     t.boolean "assigned"
     t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "card_id", null: false
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_comments_on_card_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,4 +43,6 @@ ActiveRecord::Schema.define(version: 2020_06_14_140016) do
   end
 
   add_foreign_key "cards", "users"
+  add_foreign_key "comments", "cards"
+  add_foreign_key "comments", "users"
 end

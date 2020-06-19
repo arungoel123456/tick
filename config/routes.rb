@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  delete  '/comments/destroy'   => 'comments#destroy'
+ 
+  get     '/comments/get_all'   => 'comments#get_all'
 
+  get     '/mail/send'          => 'mail#send'
+  post    '/comments/create'    => 'comments#create'
+
+  get     '/card/show'          => 'card#show'
   post    '/card/unassign'      => 'card#unassign'
   get     '/card/assigned'      => 'card#assigned'
   post    '/card/assign'        => 'card#assign'
