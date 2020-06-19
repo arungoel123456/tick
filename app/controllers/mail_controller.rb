@@ -54,7 +54,7 @@ class MailController < ApplicationController
 		service.client_options.application_name = APPLICATION_NAME
 		service.authorization = authorize
 
-		
+
 		# Show the user's labels
 		user_id = "me"
 		result = service.list_user_labels user_id
@@ -67,7 +67,7 @@ class MailController < ApplicationController
 			    email = service.get_user_message('goel.arungoel.arun@gmail.com', i.id)  
 			         
 		    	my_email = {date: email.payload.headers.find {|h| h.name == "Date" }.value}
-		    	
+		    	byebug
 		    	
 		    	email_array.push(my_email)
 		    	j = j+1

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   delete  '/comments/destroy'   => 'comments#destroy'
  
   get     '/comments/get_all'   => 'comments#get_all'
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
   post   '/user_token'          => 'user_token#create'
   
   # User actions
+  get     '/users/show'         => 'users#show'
   get    '/users'               => 'users#index'
   get    '/users/current'       => 'users#current'
   post   '/users/create'        => 'users#create'

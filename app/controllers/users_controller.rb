@@ -69,6 +69,13 @@ class UsersController < ApplicationController
     current_user.update!(last_login: Time.now)
     render json: current_user
   end
+
+  def show
+    
+    user=User.find(params[:user_id])
+    user_json= user.to_json
+    render json: user_json
+  end
   
   private
   
